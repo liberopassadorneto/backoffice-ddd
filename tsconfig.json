@@ -22,8 +22,10 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@app/*": ["./src/app/*"],
+      "@config/*": ["./src/config/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@infra/*": ["./src/infra/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
       "@test/*": ["./test/*"]
     }
   }

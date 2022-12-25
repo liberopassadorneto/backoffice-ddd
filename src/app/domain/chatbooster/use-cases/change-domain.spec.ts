@@ -1,6 +1,7 @@
 import { InMemoryBillingRepository } from '@test/repositories/in-memory-billing.repository';
 import { ChangeDomainUseCase } from './change-domain';
 import { makeBilling } from '@test/factories/billing.factory';
+import { BillingNotFoundError } from '@app/domain/chatbooster/use-cases/errors/billing-not-found.error';
 
 describe('Change Domain', () => {
   it('should be able to change a domain', async () => {
@@ -32,13 +33,11 @@ describe('Change Domain', () => {
       inMemoryBillingRepository,
     );
 
-    const billing = makeBilling();
-
-    await inMemoryBillingRepository.create(billing);
-
-    await changeDomainUseCase.execute({
-      currentDomain: billing.domain,
-      newDomain: 'new-domain@bitrix24.com',
-    });
+    await expect(
+      changeDomainUseCase.execute({
+        currentDomain: 'fake-domain@bitrix24.com.br',
+        newDomain: 'new-domain@bitrix24.com',
+      }),
+    ).rejects.toThrow(BillingNotFoundError);
   });
 });
